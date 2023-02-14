@@ -31,7 +31,7 @@ struct CurrentWeather: Codable {
         self.coord = Coordinates(lon: nil, lat: nil)
         self.weather = [Weather(main: nil, description: nil, icon: nil)]
         self.main = Main(temp: nil, humidity: nil, pressure: nil)
-        self.wind = Wind(speed: nil)
+        self.wind = Wind(speed: nil, deg: nil)
         self.clouds = Clouds(all: nil)
         self.sys = System(country: nil)
         self.name = "Error"
@@ -58,6 +58,7 @@ struct Main: Codable {
 
 struct Wind: Codable {
     let speed: Double? // wind speed
+    let deg: Int?
 }
 
 

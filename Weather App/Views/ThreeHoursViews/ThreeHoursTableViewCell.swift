@@ -85,20 +85,6 @@ class ThreeHoursTableViewCell: UITableViewCell {
         temperatureLabel.text = "\(Int(model.main.temp ?? 0))°C"
     }
     
-//    public func configure() {
-//        
-//        // load image
-//        guard let url = URL(string: "http://openweathermap.org/img/wn/10n.png") else { return }
-//        weatherIconImigeView.sd_setImage(with: url, completed: nil)
-//        
-//        // load time
-//        timeLabel.text = "01:00"
-//        
-//        descriptionLabel.text = "light Rain"
-//        
-//        temperatureLabel.text = "23°C"
-//    }
-    
     
     private func getHourFromDate(date: String) -> String {
         let dateArr = date.components(separatedBy: [" ", ":"])

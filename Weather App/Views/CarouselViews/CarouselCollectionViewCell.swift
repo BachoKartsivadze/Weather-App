@@ -120,6 +120,8 @@ class CarouselCollectionViewCell: UICollectionViewCell {
     private func addWeatherInformation() {
         locationLabel.text = (currentWeather.name ?? "error") + ", " + (currentWeather.sys.country ?? "")
         temperatureLabel.text = "\(Int(currentWeather.main.temp ?? 0))°C | \(currentWeather.weather[0].main ?? "error")"
+        let windDirection = calculateWindDirection(deg: currentWeather.wind.deg ?? 361)
+        
         cloudinessBottomView.configure(with: CarouselCollectionViewCellBottomReusableViewViewModel(
             systemImageName: "cloud.fog",
             infoText: "Cloudiness",
@@ -136,14 +138,37 @@ class CarouselCollectionViewCell: UICollectionViewCell {
             valueText: "\(currentWeather.wind.speed ?? 0) km/h"
         ))
         pressureBottomView.configure(with: CarouselCollectionViewCellBottomReusableViewViewModel(
-            systemImageName: "digitalcrown.horizontal.press",
-            infoText: "Pressure",
-            valueText: "\(currentWeather.main.pressure ?? 0) pas"
+            systemImageName: "arrow.left.arrow.right",
+            infoText: "Wind Direction",
+            valueText: "\(windDirection)"
         ))
         
         // load image
         guard let url = URL(string: "http://openweathermap.org/img/wn/\(currentWeather.weather[0].icon ?? "01d").png") else { return }
         weatherIconImigeView.sd_setImage(with: url, completed: nil)
+    }
+    
+    private func calculateWindDirection(deg: Int) -> String {
+        switch deg {
+        case 11...34: return "NNE"
+        case 34...56: return "NE"
+        case 56...78: return "ENE"
+        case 78...101: return "E"
+        case 101...124: return "ESE"
+        case 124...146: return "SE"
+        case 146...169: return "SSE"
+        case 169...191: return "S"
+        case 191...214: return "SSW"
+        case 214...236: return "SW"
+        case 236...259: return "WSW"
+        case 259...281: return "W"
+        case 282...304: return "WNW"
+        case 304...326: return "NW"
+        case 326...349: return "NNW"
+        case 0...11, 349...360: return "N"
+        default:
+            return "error"
+        }
     }
     
     func transformToLarge() {
