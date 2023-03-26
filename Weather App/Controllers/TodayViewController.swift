@@ -298,6 +298,7 @@ class TodayViewController: UIViewController {
         hideWeather()
         models.removeAll()
         models.append(CurrentWeather())
+        addCityPopup.textfield.text = ""
     }
     
     private func updateFirstModel(model: CurrentWeather) {
